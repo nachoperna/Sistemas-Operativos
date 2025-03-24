@@ -1,0 +1,1 @@
+tac "Ej 1c" > temp.tmp && mv temp.tmp "Ej 1c"

@@ -1,0 +1,1 @@
+find "$HOME" > "Ej 2"
