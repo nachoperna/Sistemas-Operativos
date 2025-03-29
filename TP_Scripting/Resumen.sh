@@ -10,6 +10,7 @@
 	ifconfig # interfaces de conexion
 	dmesg # mensajes desde dispositivos
 	lspci # dispositivos conectados
+	read -p "entrada: "archivo # lee entrada de usuario y almacena en archivo
 
 # Recorrido de archivos
 	cd # cambiar de directorio (default HOME)
@@ -66,6 +67,8 @@
 
 # Busqueda de texto
 	grep [options] regexp [files] # busca un patron en textos. Si no se indican archivos se toma la entrada estandar
+		-o # genera una lista de todas las ocurrencias de regexp
+			grep -o | wc -l # contabiliza todas las ocurrencias de regexp
 		-c # muestra solo la cantidad de lineas encontradas con ese patron
 		-h # no muestra nombre de archivos
 		-l # muestra nombres de archivos donde encontro el patron pero no la linea
@@ -74,7 +77,9 @@
 	
 	find -name "*.txt" # encontrar todos los archivos que tengan extension .txt
 	find source -size +1M # encuentra todos los archivos que pesen mas de 1 megabyte.
-	
+	find -type f # encuentra archivos
+	find -type d # encuentra directorios
+
 	# Atajos regexp
 		. # coincide todo
 		* # permite cualquier cadena de caracteres
@@ -193,6 +198,10 @@
 			echo contador es $counter
 			counter--
 		done
+
+		while IFS= read -r sub; do 
+			#IFS=Internal Field Separator evita espacios en la lectura de archivos
+			# read -r indica que itera hasta que sub no sea vacio
 
 # Secuencias
 	for i in {0..9} do # las llaves expanden el contenido hasta cumplir con el ranog
