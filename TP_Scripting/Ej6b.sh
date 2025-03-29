@@ -1,4 +1,12 @@
 read -p "Ingrese la ruta del directorio Java: " directorio
-cantidad=0
-cantidad=$(find "$directorio" -name "*.java" | grep -c "import*")
-echo "Cantidad de importaciones de clases: " $cantidad
+total=0
+
+# Iterar directamente con `for`
+for archivo in "$directorio"/*.java; do
+    if [ -f "$archivo" ]; then
+        cant_imports=$(grep -c "^import" "$archivo")
+        ((total += cant_imports))
+    fi
+done
+
+echo "Cantidad de importaciones de clases: $total"
