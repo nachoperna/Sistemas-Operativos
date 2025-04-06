@@ -32,7 +32,7 @@
 	mkdir # crear directorio
 	stat # muestra el estado actual del archivo
 	touch # cambia la fecha de un archivo o crea un archivo en blanco
-	cat # concatenar archivos e imprimirlos por terminal
+	cat # mostrar contenido de archivo en terminal y concantenar varios
 
 # Copiar archivos
 	cp [options] source dest # copia un archivo a una direccion especifica
