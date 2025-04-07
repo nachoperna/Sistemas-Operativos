@@ -17,5 +17,11 @@ else
 	echo "El texto tiene $carac_texto caracteres y se pueden imprimir $carac_imp caracteres por pagina."
 	paginas_totales=$(echo "scale=2;$carac_texto/$carac_imp" | bc) # calculo con 2 decimales
 
+	entero=$(echo $paginas_totales | cut -d "." -f1)
+	decimal=$(echo $paginas_totales | cut -d "." -f2)
+	if [[ $decimal -gt 0 ]]; then
+		paginas_totales=$((entero+1))
+	fi
+	
 	echo "Se necesitan $paginas_totales paginas para imprimir el contenido del archivo"
 fi
