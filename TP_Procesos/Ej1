@@ -1,0 +1,21 @@
+- 1)
+	Tiempo 22:
+		P1 - Waiting (ejecuta lectura de disco 3 y espera el dato)
+		P3 - Waiting (ejecuta lectura de disco 2 y espera el dato)
+		P5 - Ready (se termino su tiempo de ejecucion y esta esperando volver a ejecutarse)
+		P7 - Waiting (ejecuta escritura de disco 3 y espera que se complete)
+		P8 - Running
+
+	Tiempo 37:
+		P1: Ready (se completa su lectura y puede ser asignado a ejecucion)
+		P3: Ready (se completa su lectura y puede ser asignado a ejecucion)
+		P5: Waiting (esta utilizando disco por lo que espera un evento E/S)
+		P7: Waiting (esperando terminar su escritura en disco 3)
+		P8: Running
+
+	Tiempo 47:
+		P1: Ready (se completa su lectura y puede ser asignado a ejecucion)
+		P3: Ready (se completa su lectura y puede ser asignado a ejecucion)
+		P5: Ready (es traido desde el area de swapping por lo que su escritura a disco se completo)
+		P7: Waiting (esperando terminar su escritura en disco 3)
+		P8: Terminated
