@@ -18,7 +18,6 @@ public class Ej1 {
         float seg = (float) tiempo / 1000;
         System.out.println("Tiempo total estimado de la multiplicacion: " + seg + " segundos.");
         System.out.println();
-        System.out.println("Verificacion: " + Utils.verifyMultiplication(m1, m2, (new SimpleMultiplication()), 10));
         System.out.printf("Desea imprimir matriz resultado? (1.SI / 2.NO): ");
         if (sc.nextInt() == 1){
             printMatrix(resultado);
