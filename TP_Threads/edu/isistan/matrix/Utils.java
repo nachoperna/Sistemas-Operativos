@@ -98,7 +98,7 @@ public class Utils {
 	 * @param tests
 	 * @return
 	 */
-	public boolean verifyMultiplication(IMatrix a,IMatrix b, IMultiplication m, int tests){
+	public static boolean verifyMultiplication(IMatrix a,IMatrix b, IMultiplication m, int tests){
 		IMatrix resEsp = (new SimpleMultiplication()).multiply(a,b);
 		for (int i = 0;i<tests;i++) {
 			IMatrix res = m.multiply(a, b);
