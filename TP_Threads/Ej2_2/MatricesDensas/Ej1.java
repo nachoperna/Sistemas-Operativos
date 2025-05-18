@@ -21,7 +21,7 @@ public class Ej1 {
                 suma += Utils.measureTime(matriz1, matriz2, mult);
                 System.out.println("Se midio "+(j+1)+" veces");
             }
-            float promedio = (float) suma/3;
+            float promedio = (float) suma/10;
             float t = (float) promedio/1000;
             t = (float) (Math.round(t * 100) / 100.0);
             System.out.println("t="+t);
