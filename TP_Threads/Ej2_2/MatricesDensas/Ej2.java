@@ -12,7 +12,7 @@ public class Ej2 {
         Scanner sc = new Scanner(System.in);
         System.out.printf("Numero de filas y columnas de la Matriz Densa: ");
         int a = sc.nextInt();
-        sc.close();
+
         IMatrix matriz1 = Utils.generateDenseSquareMatrix(a);
         IMatrix matriz2 = Utils.generateDenseSquareMatrix(a);
         IMatrix resultado = matriz1.createMatrix(a, a);
@@ -42,17 +42,17 @@ public class Ej2 {
         
         IMatrix resultado_secuencial = (new SimpleMultiplication()).multiply(matriz1, matriz2);
         System.out.println("Matrices iguales: " + Utils.equalMatrices(resultado, resultado_secuencial));
-        printMatrix(resultado_secuencial);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        printMatrix(resultado);
+        System.out.printf("Desea imprimir matriz resultado? (1.SI / 2.NO): ");
+        if (sc.nextInt() == 1){
+            printMatrix(resultado);
+        }
+        sc.close();
     }
 
     public static void printMatrix(IMatrix m) {
         for (int i = 0; i < m.getRows(); i++) {
             for (int j = 0; j < m.getColumns(); j++) {
-                System.out.printf("%.2f\t", m.get(i, j));
+                System.out.printf("%.3f\t", m.get(i, j));
             }
             System.out.println();
         }

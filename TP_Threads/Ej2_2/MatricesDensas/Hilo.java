@@ -20,7 +20,7 @@ public class Hilo extends Thread implements IMultiplication{
 
     @Override
     public void run() {
-        this.resultado = multiply(matriz2, matriz1);
+        this.resultado = multiply(matriz1, matriz2);
     }
 
     @Override
@@ -33,9 +33,9 @@ public class Hilo extends Thread implements IMultiplication{
 			//Por cada columna de B
 			for (int j=0;j<b.getColumns();j++){
 				//Realiza la multiplicación para la posición i j
-				for (int k=0;k<b.getRows();k++)
+				// for (int k=0;k<b.getRows();k++)
 					resultado.set(i, j, resultado.get(i, j)+
-							a.get(i, k)*b.get(k, j));
+							a.get(i, j)*b.get(j, i));
 			}
 		}
         return resultado;
