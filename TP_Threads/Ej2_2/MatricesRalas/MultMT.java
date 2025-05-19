@@ -16,7 +16,7 @@ public class MultMT extends Thread implements IMultiplication{
     public MultMT(IMatrix m1, IMatrix m2, int t, double spar, int x, int y){
         this.m1 = m1;
         this.m2 = m2;
-        resultado = Utils.generateSparseSquareMatrix(t, spar);
+        resultado = m1.createMatrix(t, t);
         tamanio = t;
         this.spar = spar;
         limiteinf = x;
@@ -25,6 +25,7 @@ public class MultMT extends Thread implements IMultiplication{
 
     @Override
     public IMatrix multiply(IMatrix a, IMatrix b) {
+        // resultado = a.createMatrix(tamanio, tamanio);
         MultMT hilos[];
         int filasxhilo = 0;
         if (tamanio < 10){ // si la matriz es menor de 10x10 se genera un hilo por fila
@@ -36,17 +37,18 @@ public class MultMT extends Thread implements IMultiplication{
             hilos = new MultMT[10];
         }
         
-        limitesup = filasxhilo;
+        this.limiteinf = 0;
+        this.limitesup = filasxhilo;
 
-        for (MultMT hilo : hilos) {
-            hilo = new MultMT(a, b, tamanio, spar, limiteinf, limitesup);
-            hilo.start();
+        for (int i = 0; i < hilos.length; i++) {
+            hilos[i] = new MultMT(a, b, tamanio, spar, limiteinf, limitesup);
+            hilos[i].start();
             limiteinf = limitesup;
             limitesup += filasxhilo;
         }
         try {
             for (int i = 0; i < hilos.length; i++) {
-                hilos[i] = new MultMT(a, b, tamanio, spar, limiteinf, limitesup);                
+                hilos[i].join();                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,9 +67,9 @@ public class MultMT extends Thread implements IMultiplication{
 			//Por cada columna de B
 			for (int j=0;j<m2.getColumns();j++){
 				//Realiza la multiplicación para la posición i j
-				for (int k=0;k<m2.getRows();k++)
+				// for (int k=0;k<m2.getRows();k++)
 					resultado.set(i, j, resultado.get(i, j)+
-							m1.get(i, k)*m2.get(k, j));
+							m1.get(i, j)*m2.get(j, i));
 			}
 		}
     }
