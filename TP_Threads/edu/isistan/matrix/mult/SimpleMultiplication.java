@@ -22,9 +22,9 @@ public class SimpleMultiplication implements IMultiplication {
 			//Por cada columna de B
 			for (int j=0;j<b.getColumns();j++){
 				//Realiza la multiplicación para la posición i j
-				for (int k=0;k<b.getRows();k++)
+				// for (int k=0;k<b.getRows();k++)
 					res.set(i, j, res.get(i, j)+
-							a.get(i, k)*b.get(k, j));
+							a.get(i, j)*b.get(j, i));
 			}
 		}
 		return res;
