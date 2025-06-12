@@ -1,11 +1,11 @@
 package Ej10_Blancanieves;
 
 public class Enanito extends Thread{
-    Blancanieves blancanieves;
+    private Casa casa;
     private int numero;
 
-    public Enanito(Blancanieves b, int num){
-        blancanieves = b;
+    public Enanito(Casa c, int num){
+        casa = c;
         numero = num;
     }
     
@@ -15,14 +15,17 @@ public class Enanito extends Thread{
     
     public synchronized void esperar(){
         try {
-            System.out.println("Enanito " + numero + " espera sentado porque Blancanieves esta ocupada");
+            System.out.println("Enanito " + numero + " espera sentado a que le sirvan");
             this.wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public synchronized void avisar(){ this.notify(); }
+    public synchronized void avisar(){
+        System.out.println("Enanito " + getNumero() + " es avisado para comer");
+        this.notify(); 
+    }
 
     public void volverDespues(){
         System.out.println("Enanito " + numero + " sale a pasear porque no hay lugar");
@@ -35,7 +38,9 @@ public class Enanito extends Thread{
 
     public void comer(){
         try {
+            System.out.println("Enanito " + getNumero() + " comienza a comer");
             Thread.sleep(2000);
+            System.out.println("Enanito " + getNumero() + " termina de comer");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -44,7 +49,16 @@ public class Enanito extends Thread{
     @Override
     public void run() {
         while (true) {
-            blancanieves.ingresar(this);
+            casa.ingresar(this);
+            casa.avisar();
+            esperar();
+            comer();
+            casa.salir(this);
+            try {
+                Thread.sleep(4000); // enanito vuelve a comer despues de 4 segundos
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
