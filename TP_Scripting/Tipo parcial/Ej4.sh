@@ -1,22 +1,18 @@
-read -p "Palabra clave para retornar procesos de CPU mayor a media hora: " palabra
+read -p "Proceso: " proceso
 
-if [[ -z "$palabra" ]]; then # si el parametro es vacio (longitud zero)
-	ps -A | while IFS= read -r linea; do
-		tiempo=$(echo "$linea" | cut -d " " -f3)
-		horas=$(echo "$tiempo" | cut -d ":" -f1)
-		minutos=$(echo "$tiempo" | cut -d ":" -f2)
-		if [[ $minutos -gt 30 || $horas -gt 1 ]]; then
-			echo "$linea"
-		fi
-	done
+if [ -n "$proceso" ]; then
+	ps -A | grep "$proceso" | tr -s ' ' >> temp.tmp # usa tr -s para juntar espacios duplicados
 else
-	ps -A | grep -i "$palabra" | while IFS= read -r linea; do # encuentra todos los procesos que incluyan al parametro sin distincion de mayusculas
-		tiempo=$(echo "$linea" | cut -d " " -f3)
-		horas=$(echo "$tiempo" | cut -d ":" -f1)
-		minutos=$(echo "$tiempo" | cut -d ":" -f2)
-		if [[ $minutos -gt 30 || $horas -gt 1 ]]; then
-			echo "$linea"
-		fi
-	done
+	echo "proceso nulo"
+	ps -A | tr -s ' ' | tail -n +2 >> temp.tmp # usa tail para saltearse la cabecera del comando
 fi
 
+cat "$PWD/temp.tmp" | while IFS='\n' read -r linea; do
+		horas=$(echo "$linea" | cut -d ' ' -f4 | cut -d ':' -f1)
+		minutos=$(echo "$linea" | cut -d ' ' -f4 | cut -d ':' -f2)
+		if [ $horas -ge 1 -o $minutos -gt 10 ]; then
+			echo "$linea"
+		fi
+	done
+
+rm temp.tmp
